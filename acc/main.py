@@ -3,6 +3,7 @@ from cement import App, TestApp, init_defaults
 from cement.core.exc import CaughtSignal
 from .core.exc import AccError
 from .controllers.base import Base
+from .controllers.accounts import Accounts
 
 # configuration defaults
 CONFIG = init_defaults('acc')
@@ -42,7 +43,8 @@ class Acc(App):
 
         # register handlers
         handlers = [
-            Base
+            Base,
+            Accounts
         ]
 
 
