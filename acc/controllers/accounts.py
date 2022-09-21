@@ -15,10 +15,10 @@ class Account(NodeMixin):
     def sum_saldo(self, valor):
         self.saldo = self.saldo + valor
 
-    def saldo_subcontas(self):
+    def get_saldo_subcontas(self):
         saldo_subcontas = self.saldo
         for child in self.children:
-            saldo_subcontas = saldo_subcontas + child.saldo_subcontas() 
+            saldo_subcontas = saldo_subcontas + child.get_saldo_subcontas() 
         return saldo_subcontas
 
 class Accounts(Controller):
@@ -68,4 +68,4 @@ class Accounts(Controller):
                 valor = Decimal(row[amount_column].replace(',','.'))
                 last.sum_saldo(valor)
         for pre, fill, node in RenderTree(radix):
-            print("%s%s\t%s" % (pre, node.name, node.saldo))
+            print("%s%s\t%s\t%s" % (pre, node.name, node.saldo, node.get_saldo_subcontas()))
