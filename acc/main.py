@@ -4,6 +4,7 @@ from cement.core.exc import CaughtSignal
 from .core.exc import AccError
 from .controllers.base import Base
 from .controllers.accounts import Accounts
+from .controllers.entries import Entries
 
 # configuration defaults
 CONFIG = init_defaults('acc')
@@ -44,6 +45,7 @@ class Acc(App):
         # register handlers
         handlers = [
             Base,
+            Entries,
             Accounts
         ]
 
