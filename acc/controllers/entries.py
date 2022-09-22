@@ -1,5 +1,6 @@
 from cement import Controller, ex, fs
 import csv
+from tabulate import tabulate
 
 class Entries(Controller):
     class Meta:
@@ -8,10 +9,16 @@ class Entries(Controller):
         stacked_on = 'base'
     @ex(
             help='list all entries',
-            arguments=[(['input_file'],{'help':'a CSV file with transactions'})]
+            arguments=[
+                (['input_file'],{'help':'a CSV file with transactions'}),
+                (['--account','-a'],{'help':'filter entries by account name'})
+            ]
     )
     def list(self):
         fs.backup(self.app.pargs.input_file)
+        
+        result = []
+        
         with open(self.app.pargs.input_file) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             date_column = 1
@@ -32,4 +39,5 @@ class Entries(Controller):
                 date = row[date_column]
                 description = row[description_column]
 
-                print('%s\t%s\t%s\t%s' % (date, description, amount, account))
+                result.append([date,description,amount,account])
+            print(tabulate(result)) 
