@@ -27,7 +27,7 @@ class Acc(App):
         extensions = [
             'yaml',
             'colorlog',
-            'jinja2',
+            'jinja2'
         ]
 
         # configuration handler
